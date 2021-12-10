@@ -1,0 +1,211 @@
+/* purgecss start ignore */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+/* purgecss end ignore */
+
+/** 
+ *  base styles go here
+ *  ------------------------------------------------------------------------------------
+ */
+
+ /** PALETTE */
+ @layer base {
+   :root {
+     --color-primary: #8B5CF6;
+     --color-primary-light: #D9C9FF;
+     --color-primary-dark:#6C48C2;
+     --color-secondary: #E26D68;
+     --color-accent: #138CAB;
+     --color-disabled:#D9D9D9;
+     --color-text-header: #536877;
+     --color-text-body: #6B7280;
+     --color-text-input: #1F2937;
+     --color-text-alternate: #526F75;
+     --color-text-contrast: #FFFFFF;
+     --color-text-disabled: #D9D9D9;
+     --color-success: #48DA94;
+     --color-error: #FD306E;
+     --color-alert: #FFCB05;
+     --color-background: #FFFFFF;
+     --color-button: #8B5CF6;
+     --color-button-hover: #6C48C2;
+     --color-link: #8B5CF6;
+     --color-link-hover: #6C48C2;
+   }
+ }
+
+ /** DEFAULT CLASSES */
+ @layer components {
+  .base-alert{
+    @apply w-full transition duration-150 ease-in-out shadow rounded-md  flex justify-between items-center top-0 mt-3 mb-3 py-4 px-4
+  }
+  .base-alert-dismiss{
+    @apply text-sm mr-4 font-bold cursor-pointer text-white
+  }
+  .base-alert-error{
+    @apply bg-error
+  }
+  .base-alert-info{
+    @apply bg-accent
+  }
+  .base-alert-message{
+    @apply text-base text-white
+  }
+  .base-alert-success{
+    @apply bg-success
+  }
+  .base-alert-title{
+    @apply mr-2 text-base font-bold text-white
+  }
+  .base-alert-warn{
+    @apply bg-alert
+  }
+  .base-button {
+    @apply flex items-center my-2 focus:outline-none rounded px-5 py-2 text-sm font-semibold
+  }
+  .base-button-icon {
+    @apply flex items-center my-2 focus:outline-none rounded-full px-2 py-2 text-sm font-semibold
+  }
+  .base-button-primary {
+    @apply bg-button transition duration-150 ease-in-out hover:bg-buttonHover text-white
+  }
+  .base-button-secondary {
+    @apply bg-gray-100 transition duration-150 ease-in-out hover:bg-gray-200 text-primary
+  }
+  .base-button-disabled {
+    @apply bg-disabled text-white cursor-default
+  }
+  .base-checkbox-input {
+    @apply h-5 w-5 text-primary focus:ring-2 focus:ring-transparent border-disabled;
+  }
+  .base-checkbox-label {
+    @apply inline-flex items-center mt-3 text-header text-sm font-bold;
+  }
+  .base-dropdown-button {
+    @apply bg-transparent inline-flex items-center text-base font-medium text-gray-500 hover:text-gray-900 focus:outline-none
+  }
+  .base-dropdown-list{
+    @apply text-left rounded-md shadow-lg bg-white absolute -ml-4 mt-3 transform px-2 w-max max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2
+  }
+  .base-dropdown-link {
+    @apply w-full h-full hover:bg-gray-100 py-2 pr-20 pl-8 block relative text-left
+  }
+  .base-dropdown-link-label {
+    @apply text-base font-medium text-gray-900
+  }
+  .base-dropdown-link-description {
+    @apply text-base text-sm text-gray-500
+  }
+  .base-form-title{
+    @apply text-lg text-header font-bold
+  }
+  .base-form-title-line{
+    @apply w-full border-b border-disabled py-5 bg-transparent mb-5
+  }
+  .base-icontextbox {
+    @apply flex flex-col w-full;
+  }
+  .base-icontextbox-icon {
+    @apply inline-flex items-center justify-center absolute top-0 h-full w-10 text-gray-400;
+  }
+  .base-icontextbox-input {
+    @apply bg-white border border-disabled py-3 shadow-sm rounded text-sm focus:outline-none focus:border-primary text-input focus:ring-primary;
+  }
+  .base-input-label {
+    @apply pb-2 text-sm font-bold text-header;
+  }
+  .base-modal {
+    @apply fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none
+  }
+  .base-modal-button-group {
+    @apply p-3 mt-2 pb-0 w-full inline-flex justify-end space-x-4
+  }
+  .base-modal-description {
+    @apply text-sm text-body py-4
+  }
+  .base-modal-title {
+    @apply text-xl font-bold text-header
+  }
+  .base-modal-button-title-line {
+    @apply border-b border-disabled pb-2
+  }
+  .base-navbar {
+    @apply bg-white filter drop-shadow-sm relative z-50;
+  }
+  .base-navbar-inner {
+    @apply max-w-7xl mx-auto px-2 sm:px-6 lg:px-8
+  }
+  .base-navbar-link {
+    @apply bg-transparent border-0 text-base font-medium text-gray-500 hover:text-gray-900 focus:outline-none
+  }
+  .base-progressbar {
+    @apply flex mb-2 items-center justify-between relative pt-1
+  }
+  .base-progressbar-background-bar {
+    @apply overflow-hidden h-2 mb-4 text-xs flex rounded bg-primary-light;
+  }
+  .base-progressbar-bar {
+    @apply shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary;
+  }
+  .base-progressbar-percentage {
+    @apply text-xs font-semibold inline-block text-primary;
+  }
+  .base-progressbar-task {
+    @apply text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-primary bg-primary-light;
+  }
+  .base-select {
+    @apply  relative w-full bg-white border border-disabled shadow-sm rounded  pl-3 py-3 pr-10 text-input cursor-default focus:outline-none focus:border-primary focus:ring-primary focus:ring-1 sm:text-sm
+  }
+  .base-select-selected {
+    @apply text-white cursor-default select-none relative py-2 pl-3 pr-9 bg-primary
+  }
+  .base-select-unselected {
+    @apply text-input cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-primary hover:text-white
+  }
+  .base-spinner {
+    @apply animate-spin -ml-1 mr-3 h-5 w-5 text-primary;
+  }
+  .base-textarea {
+    @apply mt-3 flex flex-col w-full;
+  }
+  .base-textarea-input{
+    @apply bg-white border border-disabled  pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-primary resize-none text-input focus:ring-primary;
+  }
+  .base-textbox {
+    @apply mt-3 flex flex-col w-full;
+  }
+  .base-textbox-input {
+    @apply bg-white border border-disabled pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-primary text-input focus:ring-primary;
+  }
+  .base-textbox-message-error {
+    @apply flex justify-between items-center pt-1 text-error px-2
+  }
+  .base-textbox-message-success {
+    @apply flex justify-between items-center pt-1 text-success px-2
+  }
+  .base-togglebutton {
+    @apply mt-3 flex flex-col w-full w-full
+  }
+  .base-togglebutton-bg {
+    @apply block bg-gray-200 w-8 h-4 rounded-full transition
+  }
+  .base-togglebutton-bg-selected {
+    @apply bg-primary
+  }
+  .base-togglebutton-dot {
+    @apply absolute left-1 top-1 bg-white w-2 h-2 rounded-full transition
+  }
+  .base-togglebutton-dot-selected {
+    @apply transform translate-x-full left-3
+  }
+  .base-togglebutton-label {
+    @apply ml-3 text-header text-sm font-bold;
+  }
+}
+
+/** 
+ *  ------------------------------------------------------------------------------------
+ *  end base styles
+ */
+
+@import 'tailwindcss/utilities';

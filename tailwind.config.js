@@ -1,0 +1,101 @@
+// const { backgroundColor } = require('tailwindcss/defaulttheme');
+
+module.exports = {
+  purge: {
+    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+    safelist: [
+      "base-alert",
+      "base-alert-dismiss",
+      "base-alert-error",
+      "base-alert-info",
+      "base-alert-message",
+      "base-alert-success",
+      "base-alert-title",
+      "base-alert-warn",
+      "base-button",
+      "base-button-icon",
+      "base-button-primary",
+      "base-button-secondary",
+      "base-button-disabled",
+      "base-checkbox-input",
+      "base-checkbox-label",
+      "base-dropdown-button",
+      "base-dropdown-list",
+      "base-dropdown-link",
+      "base-dropdown-link-label",
+      "base-dropdown-link-description",
+      "base-form-title",
+      "base-form-title-line",
+      "base-icontextbox",
+      "base-icontextbox-icon",
+      "base-icontextbox-input",
+      "base-input-label",
+      "base-modal",
+      "base-modal-button-group",
+      "base-modal-description",
+      "base-modal-title",
+      "base-modal-button-title-line",
+      "base-navbar",
+      "base-navbar-inner",
+      "base-navbar-link",
+      "base-progressbar",
+      "base-progressbar-background-bar",
+      "base-progressbar-bar",
+      "base-progressbar-percentage",
+      "base-progressbar-task",
+      "base-select",
+      "base-select-selected",
+      "base-select-unselected",
+      "base-spinner",
+      "base-textarea",
+      "base-textarea-input",
+      "base-textbox",
+      "base-textbox-input",
+      "base-textbox-message-error",
+      "base-textbox-message-success",
+      "base-togglebutton",
+      "base-togglebutton-bg",
+      "base-togglebutton-bg-selected",
+      "base-togglebutton-dot",
+      "base-togglebutton-dot-selected",
+      "base-togglebutton-label",
+    ]
+  },
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          light: 'var(--color-primary-light)',
+          DEFAULT: 'var(--color-primary)',
+          dark: 'var(--color-primary-dark)'
+        },
+        secondary: 'var(--color-secondary)',
+        accent: 'var(--color-accent)',
+        disabled: 'var(--color-disabled)',
+        success: 'var(--color-success)',
+        error: 'var(--color-error)',
+        alert: 'var(--color-alert)',
+      },
+      textColor: {
+        header: 'var(--color-text-header)',
+        body: 'var(--color-text-body)',
+        input: 'var(--color-text-input)',
+        alternate: 'var(--color-text-alternate)',
+        contrast: 'var(--color-text-contrast)',
+        disabled: 'var(--color-text-disabled)',
+        link: 'var(--color-link)',
+        linkHover: 'var(--color-link-hover)'
+      },
+      backgroundColor: {
+        fill: 'var(--color-background)',
+        button: 'var(--color-button)',
+        buttonHover: 'var(--color-button-hover)'
+      }
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [require('@tailwindcss/forms')],
+}
