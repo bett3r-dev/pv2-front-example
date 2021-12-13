@@ -12,7 +12,7 @@ export default function useTranslation() {
 }
 
 function useProvideTranslation() {
-  const [lang, setLang] = useState(); 
+  const [/* lang */, setLang] = useState(); 
   useEffect(() => { //logica language detector + query params + eleccion
    const userLang = navigator.language || navigator.userLanguage; 
    const searchParams = new URLSearchParams( window.location.search );

@@ -1150,6 +1150,31 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bett3r-dev/bett3r-utils@^0.1.0":
+  version "0.1.0"
+  resolved "https://npm.pkg.github.com/download/@bett3r-dev/bett3r-utils/0.1.0/45f124a771b22a6f58a8cafa0855244fd1e0051cd331f448882948d6b42c119b#4fa6a118a2be53ea47e9252b8271fc9e5558f781"
+  integrity sha512-G6X6mMVmLMDdW9WDwYwiVbnLBSPg5Gv4oVbOrCN/8WWOJJPD21vwgLAVQ2wC4duSWqqJCqEadoRQO56tLOU7ow==
+  dependencies:
+    "@bett3r-dev/crocks" "^0.12.5"
+    "@bett3r-dev/flyd" "^0.3.4"
+    "@bett3r-dev/simple-transducers" "^1.1.0"
+    rambda "^6.5.3"
+
+"@bett3r-dev/crocks@^0.12.5":
+  version "0.12.5"
+  resolved "https://npm.pkg.github.com/download/@bett3r-dev/crocks/0.12.5/413ac3afb7048cb485b032ee680be8657e940cba0d69075fb95e98c6eb648ce0#48601f360e37774436f6d42e28f5ea47ed3f7eb2"
+  integrity sha512-3oQ2R7fNtNyk2iJf1ho3FSDEZ9I8cXXk4LSuT0uHtMAMraDYAox/Wdz1gXKb+yXxJhfSI+kUiRWqdjd1MWNl/g==
+
+"@bett3r-dev/flyd@^0.3.4":
+  version "0.3.4"
+  resolved "https://npm.pkg.github.com/download/@bett3r-dev/flyd/0.3.4/2122bb864e6984dafefcb84ca398983df7c17319463e3117a4acfe1116bada05#f775018b8221dcaa3feeda78cde0b355e6bf7492"
+  integrity sha512-wTTs5vKsmM0g1WdfAAL2j0ozyIjiZV8lOTDZgsG4FGBSolZylFsbZ4UiUo7WgJQAdapulCtJEbbR8zOibx0fMw==
+
+"@bett3r-dev/simple-transducers@^1.1.0":
+  version "1.1.0"
+  resolved "https://npm.pkg.github.com/download/@bett3r-dev/simple-transducers/1.1.0/e78d24a7814129a44c79c06bc91ddc84d08ea467d5c64e5ad336f1ac2fb135eb#a9fc05633d7ef2e38a7b8f4d64d2a7e7d213476d"
+  integrity sha512-OCwXLHETrVdVCMAh1rfnxnzE3IqSVi4TKV/PXu8M710lN/pWsFnKmy9OBYvmeiwW2IPAWWhUpGJQz/ZWtgXUHw==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -9711,6 +9736,11 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
+rambda@^6.5.3, rambda@^6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/rambda/-/rambda-6.9.0.tgz#17cd0b0c427295e00e8fe12de5bd63884502a9a4"
+  integrity sha512-yosVdGg1hNGkXPzqGiOYNEpXKjEOxzUCg2rB0l+NKdyCaSf4z+i5ojbN0IqDSezMMf71YEglI+ZUTgTffn5afw==
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -12320,11 +12350,6 @@ ws@^7.2.3:
   version "7.4.3"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.3.tgz#1f9643de34a543b8edb124bdcbc457ae55a6e5cd"
   integrity sha512-hr6vCR76GsossIRsr8OLR9acVVm1jyfEWvhbNjtgPOrfvAlKzvyeg/P6r8RuDjRyrcQoPQT7K0DGEPc7Ae6jzA==
-
-ws@^8.3.0:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.3.0.tgz#7185e252c8973a60d57170175ff55fdbd116070d"
-  integrity sha512-Gs5EZtpqZzLvmIM59w4igITU57lrtYVFneaa434VROv4thzJyV6UjIL3D42lslWlI+D4KzLYnxSwtfuiO79sNw==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"

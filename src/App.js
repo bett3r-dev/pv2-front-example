@@ -10,12 +10,27 @@ import Spinner from './components/common/Spinner.jsx';
 import AuthMain from './screens/auth/AuthMain.jsx';
 import Home from './screens/Home.jsx';
 
+import useSubscription from './hooks/useSubscription/index.js';
+import { useEffect } from 'react';
+
 //How to change variable colors from outside
 // const root = document.documentElement;
 // root.style.setProperty('--color-primary', '#FFCB05');
 
 const App = ({ props }) => {
   const location = useLocation();
+  const subscriptions = useSubscription();
+
+  useEffect(() => {
+    subscriptions.socketConnect()
+      .then(() => {
+        subscriptions.subscribe('ProductAdded')
+          .map(data => console.log('LO Que LLEGO', data))
+          .map(() => subscriptions.unsubscribe('ProductAdded'))
+          
+      });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   // const { user, isLoading } = useAuth();
   return (
     <Switch>

@@ -27,7 +27,7 @@ function useProvideAuth() {
   };
 
   const signup = (email, password) => {
-    const baseUrl = process.env.URL;
+    const baseUrl = process.env.REACT_APP_PV2_SERVER_DOMAIN;
     return fetch(`${baseUrl}/api/register`,
       {
        method: 'POST',

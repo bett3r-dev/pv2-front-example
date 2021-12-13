@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bett3r-dev/bett3r-utils": "^0.1.0",
+    "@bett3r-dev/crocks": "^0.12.5",
+    "@bett3r-dev/flyd": "^0.3.4",
     "@craco/craco": "^6.1.2",
     "@tailwindcss/forms": "^0.3.3",
     "dotenv": "^10.0.0",
     "firebase": "^8.6.5",
+    "rambda": "^6.9.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -15,8 +19,7 @@
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
-    "uuid": "^8.3.2",
-    "ws": "^8.3.0"
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "craco start",
