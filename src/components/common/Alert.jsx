@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
-function Alert({children, title, message, dismiss='Dismiss', type='success', className, titleClassName, messageClassName, dismissClassName, customColor}){
+function Alert({children, title, message, dismiss='Dismiss', type='success', className, titleClassName, messageClassName, dismissClassName, customColor, onDismiss}){
     //types: success, warn, error, info
     const [visible, setVisible] = useState(true);
-
     const alertTypes = {
         'success':{
             getAlertSvg: () => {
@@ -71,7 +71,7 @@ function Alert({children, title, message, dismiss='Dismiss', type='success', cla
                         <p className={`base-alert-message ${messageClassName}`}>{message}</p>
                     </div>
                     <div className="flex justify-end items-center">
-                        <span onClick={() => setVisible(false)} className={`base-alert-dismiss ${dismissClassName}`}>
+                        <span onClick={() => {setVisible(false);  onDismiss()}} className={`base-alert-dismiss ${dismissClassName}`}>
                             {dismiss}
                         </span>
                     </div>

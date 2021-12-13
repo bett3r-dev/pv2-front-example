@@ -19,18 +19,18 @@ import { useEffect } from 'react';
 
 const App = ({ props }) => {
   const location = useLocation();
-  const subscriptions = useSubscription();
+  // const subscriptions = useSubscription();
 
-  useEffect(() => {
-    subscriptions.socketConnect()
-      .then(() => {
-        subscriptions.subscribe('ProductAdded')
-          .map(data => console.log('LO Que LLEGO', data))
-          .map(() => subscriptions.unsubscribe('ProductAdded'))
+  // useEffect(() => {
+  //   subscriptions.socketConnect()
+  //     .then(() => {
+  //       subscriptions.subscribe('ProductAdded')
+  //         .map(data => console.log('LO Que LLEGO', data))
+  //         .map(() => subscriptions.unsubscribe('ProductAdded'))
           
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  //     });
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
   // const { user, isLoading } = useAuth();
   return (
     <Switch>
@@ -52,9 +52,6 @@ const App = ({ props }) => {
               </Route>
               <Route exact path='/demo/info'>
                   <Info />
-              </Route>
-              <Route exact path='/demo/sanity'>
-                  <Sanity src={'https://safetyapp.sanity.studio/desk'} />
               </Route>
               <Route exact path='/'>
                   <Home/>

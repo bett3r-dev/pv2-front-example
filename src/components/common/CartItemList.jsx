@@ -31,12 +31,12 @@ const CartItemList = ({itemList, updateQuantity, removeCartItem}) =>{
         <div className="w-full p-4 px-5 py-5">
             <div className="gap-2">
                 <div className="col-span-2 p-5">
-                    {itemList.map(item =>{
+                    {itemList.map((item, key) =>{
                         return(
-                            <>
+                            <div key={key}>
                                 <CartItem item={item} removeCartItem={removeCartItem} updateQuantity={updateQuantity}/>
                                 <div className="flex justify-between items-center pt-6 mt-6 border-t"></div>
-                            </>
+                            </div>
                         )
                     })}
                 </div>

@@ -59,7 +59,7 @@ const AutocompleteTextBox = ({label, options, value, onChange}) =>{
 
     useEffect(() => {
         const listener = e => {
-            if(!ref.current.contains(e.target)) {
+            if(!ref?.current?.contains(e.target)) {
                 setShowOptions(false)
                 setCursor(-1)
             }
