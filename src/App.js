@@ -27,10 +27,10 @@ const App = ({ props }) => {
         subscriptions.subscribe('ProductAdded')
           .map(data => console.log('LO Que LLEGO', data))
           .map(() => subscriptions.unsubscribe('ProductAdded'))
-          
       });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   // const { user, isLoading } = useAuth();
   return (
     <Switch>

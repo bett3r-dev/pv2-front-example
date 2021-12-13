@@ -11,12 +11,9 @@ export const subscriptionStreamPush = (payload) => {
   return safeResult(isDefined, subscriptions[payload.event])
     .map(stream => stream(payload.data))
     .bimap(()=> error(`Web Socket message for event ${payload.event} with no subscription registred`), I)
-  // if (isDefined(subscriptions[payload.event]))
-  //   subscriptions[payload.event](payload.data);
-  // else error(`Web Socket message for event ${payload.event} with no subscription registred`)
 }
 export const socketConnect = () => {
-  ws = new WebSocket(`ws://${config.pv2.serverDomain}${config.pv2.socketUpgradeRoute}`);
+  ws = new WebSocket(`${config.pv2.serverProtocol.replace('http', 'ws')}${config.pv2.serverDomain}${config.pv2.socketUpgradeRoute}`);
   ws.onmessage = function message(message) {
     jsonParse(message.data)
       .map(subscriptionStreamPush)

@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, createContext } from 'react';
 import { auth } from '../../services/firebase';
+import { config } from '../../services/config';
 
 const authContext = createContext();
 
@@ -27,7 +28,7 @@ function useProvideAuth() {
   };
 
   const signup = (email, password) => {
-    const baseUrl = process.env.REACT_APP_PV2_SERVER_DOMAIN;
+    const baseUrl = `${config.pv2.serverProtocol}${config.pv2.serverDomain}`;
     return fetch(`${baseUrl}/api/register`,
       {
        method: 'POST',
