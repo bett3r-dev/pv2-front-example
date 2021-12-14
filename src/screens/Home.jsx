@@ -30,14 +30,14 @@ export default function Home(props) {
   const createCart = () =>{
     setIsLoading(true)
     setLoadingMessage("Iniciando Compra")
-    post({endpoint:`carts/${userCartId}/create-user-cart`, data:{cartId: userCartId}})
+    post({endpoint:`/carts/${userCartId}/create-user-cart`})
       .then(res =>{
         if(res.error){
           setError(`${res.message}`)
           setIsLoading(false)
           setLoadingMessage("")
         }else{
-       get({endpoint: 'products/readmodel'})
+       get({endpoint: '/products/readmodel'})
           .then(res => {
             setProductList([...res])
             setIsCartCreated(true)
@@ -60,7 +60,7 @@ export default function Home(props) {
       price: itemToAdd.price,
       sku: itemToAdd.sku,
      }
-    post({endpoint: `carts/${userCartId}/add-product`, data:{productId: itemToAdd.id, productInfo: itemInfo, quantity: 1}})
+    post({endpoint: `/carts/${userCartId}/add-product`, data:{productId: itemToAdd.id, productInfo: itemInfo, quantity: 1}})
       .then(res =>{
         if(res.error){
           setError(res.message)
@@ -76,7 +76,7 @@ export default function Home(props) {
   }
   const updateQuantity = (quantity, itemId) => {
     const itemToUpdate = cartItems.find(item => item.item.id === itemId);
-    post({endpoint: `carts/${userCartId}/update-quantity`, data:{ productId: itemToUpdate.item.id, quantity: quantity}})
+    post({endpoint: `/carts/${userCartId}/update-quantity`, data:{ productId: itemToUpdate.item.id, quantity: quantity}})
       .then(res =>{
         if(res.error || !res.state){
           setError(res.message || res.ProductOutOfStock.name || undefined)
@@ -89,7 +89,7 @@ export default function Home(props) {
       .catch(error => setError(error.message))
   }
   const removeCartItem = (itemId) =>{
-    post({endpoint: `carts/${userCartId}/remove-product`, data: itemId})
+    post({endpoint: `/carts/${userCartId}/remove-product`, data: itemId})
       .then(res => {
         if(res.error){
           setError(res.message)
@@ -110,13 +110,18 @@ export default function Home(props) {
             .map(() => subscriptions.unsubscribe('PaymentApproved'))
             .map(()=> setIsLoading(false))
             .map(()=> setLoadingMessage(""))
+          subscriptions.subscribe('InvoiceCreated')
+            .map(data => console.log('LO Que LLEGO InvoiceCreated', data))
+            .map(() => subscriptions.unsubscribe('InvoiceCreated'))
+            .map(()=> setIsLoading(false))
+            .map(()=> setLoadingMessage(""))
           subscriptions.subscribe('PaymentRejected')
             .map(data => console.log('LO Que LLEGO Rejected', data))
             .map(() => subscriptions.unsubscribe('PaymentRejected'))
             .map(()=> setIsLoading(false))
             .map(()=> setLoadingMessage(""))
         });
-     post({endpoint: `payments/${userCartId}/start-payment`, data: {}})
+     post({endpoint: `/payments/${userCartId}/start-payment`, data: {}})
       .then(res => {
         if(res.error){
           setError(res.message)

@@ -21,7 +21,6 @@ const App = ({ props }) => {
   const location = useLocation();
   // const subscriptions = useSubscription();
 
-<<<<<<< HEAD
   // useEffect(() => {
   //   subscriptions.socketConnect()
   //     .then(() => {
@@ -32,18 +31,6 @@ const App = ({ props }) => {
   //     });
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [])
-=======
-  useEffect(() => {
-    subscriptions.socketConnect()
-      .then(() => {
-        subscriptions.subscribe('ProductAdded')
-          .map(data => console.log('LO Que LLEGO', data))
-          .map(() => subscriptions.unsubscribe('ProductAdded'))
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
->>>>>>> 8f2fde8a4d29971e6500e9e8b6368e1678e4550f
   // const { user, isLoading } = useAuth();
   return (
     <Switch>
