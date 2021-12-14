@@ -26,11 +26,14 @@ export default function Home(props) {
   const [cartItems, setCartItems] = useState([])
   const [userCartId, setUserCartId] = useState(uuid())
   const [error, setError] = useState();
+  const [success, setSuccess] = useState();
   const [invoice, setInvoice] = useState();
 
   
   const createCart = () =>{
     setIsLoading(true)
+    setError("")
+    setSuccess("")
     setLoadingMessage("Iniciando Compra")
     post({endpoint:`/carts/${userCartId}/create-user-cart`})
       .then(res =>{
@@ -109,6 +112,7 @@ export default function Home(props) {
         .then(() => {
           subscriptions.subscribe('PaymentApproved')
             .map(() => subscriptions.unsubscribe('PaymentApproved'))
+            .map(() => setSuccess("Pago Aprobado"))
             .map(()=> setLoadingMessage("Generando Factura"))
             .map(()=> emptyCart())
           subscriptions.subscribe('InvoiceCreated')
@@ -154,6 +158,7 @@ export default function Home(props) {
               <span className='block text-primary '>{__('PV2 example')}</span>
             </h1>
             {error && <div className="mt-4"><Alert title={'Error'} type={'error'} message={error} onDismiss={() => setError("")}/></div>}
+            {success && <div className="mt-4"><Alert title={'Éxito'} type={'success'} message={success} onDismiss={() => setSuccess("")}/></div>}
             <div className='mt-5 sm:mt-8 sm:justify-center lg:justify-start md:space-x-4'>
               {isLoading ?
               <div className="flex flex-col">

@@ -1,0 +1,11 @@
+✔ toast de ok @done(21-12-14 13:27)
+☐ reorganizar hooks y services
+    ☐ pv2 -> useSubscriptions @started(21-12-14 13:51)
+    ✔ logger @done(21-12-14 13:51)
+    ✔ useConfig @done(21-12-14 13:51)
+☐ Convertir domain de pv2 en una libreria e importarla aca (tipos)
+☐ pasar a tsx (probar)
+☐ mapeo de errores (una vez domain)
+☐ en el useEndpoint asegurarme de que la data mapee con lo que recibe el comando
+☐ evento websocket -> mapear lo que recibe (ts domain)
+

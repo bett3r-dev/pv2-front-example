@@ -1,5 +1,5 @@
 export default function useEndpoint() {
-
+  //TODO: config -> url
    async function get({endpoint}){
        return fetch(`http://localhost:1984${endpoint}`)
        .then(response => response.json())
