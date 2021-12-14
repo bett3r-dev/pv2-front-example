@@ -6,6 +6,7 @@
     "@bett3r-dev/bett3r-utils": "^0.1.0",
     "@bett3r-dev/crocks": "^0.12.5",
     "@bett3r-dev/flyd": "^0.3.4",
+    "@bett3r-dev/pv2-template-domain": "^0.0.1",
     "@craco/craco": "^6.1.2",
     "@tailwindcss/forms": "^0.3.3",
     "dotenv": "^10.0.0",
