@@ -22,6 +22,7 @@ function useProvideSubscription() {
 
   const socketConnect = () => {
     ws = new WebSocket(`${pv2.serverProtocol.replace('http', 'ws')}${pv2.serverDomain}${pv2.socketUpgradeRoute}`);
+    
     ws.onmessage = function message(message) {
       jsonParse(message.data)
         .map(subscriptionStreamPush)
@@ -33,6 +34,9 @@ function useProvideSubscription() {
       };
     })
   
+  }
+  const socketDisconnect = () =>{
+    ws.close();
   }
   
   const waitForConnection = (callback, interval = 100 ) => {
@@ -54,7 +58,7 @@ function useProvideSubscription() {
     subscriptions[event] = subscriptions[event] || stream();
     return subscriptions[event]; 
   }
-  
+
   const unsubscribe = (event) => {
     delete subscriptions[event];
     debug('unsubscribing to event', event);
@@ -63,6 +67,7 @@ function useProvideSubscription() {
   
   return {
     socketConnect,
+    socketDisconnect,
     subscribe,
     unsubscribe
   };
