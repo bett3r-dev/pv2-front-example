@@ -8,14 +8,12 @@ import { ProvideSubscription } from './hooks/useSubscription';
 import {BrowserRouter} from "react-router-dom";
 import { Provider } from 'react-redux';
 import App from './App';
-import { ProvideEndpoint } from './hooks/useEndpoint';
 const appStore = store.create();
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={appStore}>
       {/* <ProvideAuth> */}
-      <ProvideEndpoint>
         <ProvideTranslation>
           <ProvideSubscription>
             <BrowserRouter>
@@ -23,7 +21,6 @@ ReactDOM.render(
             </BrowserRouter>
           </ProvideSubscription>
         </ProvideTranslation>
-      </ProvideEndpoint>
       {/* </ProvideAuth> */}
     </Provider>
   </React.StrictMode>,

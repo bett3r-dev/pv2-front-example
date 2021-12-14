@@ -27,6 +27,12 @@ const CartItem = ({item, updateQuantity, removeCartItem}) => {
 }
 
 const CartItemList = ({itemList, updateQuantity, removeCartItem}) =>{
+    const calculateTotal = (itemList) =>{
+        return itemList.reduce((acc,curr)=>{
+            const totalCurr = curr.quantity * curr.item.price;
+            return acc + totalCurr;
+        },0)
+    }
     return(
         <div className="w-full p-4 px-5 py-5">
             <div className="gap-2">
@@ -39,6 +45,10 @@ const CartItemList = ({itemList, updateQuantity, removeCartItem}) =>{
                             </div>
                         )
                     })}
+                </div>
+                <div className="flex justify-between mb-36">
+                    <span className="text-md font-medium">Total:</span>
+                    <span className="text-md font-medium">${calculateTotal(itemList)}</span>
                 </div>
             </div>
         </div>

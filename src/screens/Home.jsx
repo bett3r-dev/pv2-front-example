@@ -9,6 +9,7 @@ import Alert from '../components/common/Alert';
 import {v4 as uuid} from 'uuid'
 import useSubscription from '../hooks/useSubscription';
 import useEndpoint from '../hooks/useEndpoint';
+import CartInvoice from '../components/common/CartInvoice';
 
 
 export default function Home(props) {
@@ -25,6 +26,7 @@ export default function Home(props) {
   const [cartItems, setCartItems] = useState([])
   const [userCartId, setUserCartId] = useState(uuid())
   const [error, setError] = useState();
+  const [invoice, setInvoice] = useState();
 
   
   const createCart = () =>{
@@ -106,35 +108,42 @@ export default function Home(props) {
     subscriptions.socketConnect()
         .then(() => {
           subscriptions.subscribe('PaymentApproved')
-            .map(data => console.log('LO Que LLEGO Approved', data))
             .map(() => subscriptions.unsubscribe('PaymentApproved'))
-            .map(()=> setIsLoading(false))
-            .map(()=> setLoadingMessage(""))
+            .map(()=> setLoadingMessage("Generando Factura"))
+            .map(()=> emptyCart())
           subscriptions.subscribe('InvoiceCreated')
-            .map(data => console.log('LO Que LLEGO InvoiceCreated', data))
+            .map(data => setInvoice({...data}))
             .map(() => subscriptions.unsubscribe('InvoiceCreated'))
             .map(()=> setIsLoading(false))
             .map(()=> setLoadingMessage(""))
           subscriptions.subscribe('PaymentRejected')
-            .map(data => console.log('LO Que LLEGO Rejected', data))
+            .map(console.log)
+            .map(() => setError("El pago ha sido rechazado, intente nuevamente"))
             .map(() => subscriptions.unsubscribe('PaymentRejected'))
             .map(()=> setIsLoading(false))
             .map(()=> setLoadingMessage(""))
-        });
-     post({endpoint: `/payments/${userCartId}/start-payment`, data: {}})
-      .then(res => {
-        if(res.error){
-          setError(res.message)
-          setIsLoading(false)
-          setLoadingMessage("")
-          subscriptions.unsubscribe('PaymentApproved')
-          subscriptions.unsubscribe('PaymentRejected')
-        }else{
-        console.log('paymentstart call', res)
-          
-        }
-    })
-    .catch(error => setError(error.message))
+        })
+        .then(()=>{
+          post({endpoint: `/payments/${userCartId}/start-payment`, data: {}})
+          .then(res => {
+            if(res.error){
+              setError(res.message)
+              setIsLoading(false)
+              setLoadingMessage("")
+              subscriptions.unsubscribe('PaymentApproved')
+              subscriptions.unsubscribe('PaymentRejected')
+            }else{
+            console.log('paymentstart call', res)
+              
+            }
+        })
+        .catch(error => setError(error.message))
+        })
+  }
+  const emptyCart = () =>{
+    setIsCartCreated(false)
+    setCartItems([])
+    setUserCartId(uuid())
   }
 
   return (
@@ -145,7 +154,7 @@ export default function Home(props) {
               <span className='block text-primary '>{__('PV2 example')}</span>
             </h1>
             {error && <div className="mt-4"><Alert title={'Error'} type={'error'} message={error} onDismiss={() => setError("")}/></div>}
-            <div className='mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start md:space-x-4'>
+            <div className='mt-5 sm:mt-8 sm:justify-center lg:justify-start md:space-x-4'>
               {isLoading ?
               <div className="flex flex-col">
                 <div className='mx-5 mt-5'><Spinner/></div> 
@@ -156,13 +165,24 @@ export default function Home(props) {
                 { isCartCreated ?
                   <AutocompleteTextBox label={__('Añada un producto al carrito')} options={productList} value={selectedOption} onChange={addCartItem}/>
                   :
-                  <Button label={__('Iniciar Compra')} onClick={() => createCart()} />
+                  <>
+                  { invoice ?
+                    <>
+                      <div className="w-full">
+                        <Button label={__('Iniciar Otra Compra')} onClick={() => createCart()} />
+                      </div>
+                      <CartInvoice invoice={invoice}></CartInvoice>
+                    </>
+                    :
+                      <Button label={__('Iniciar Compra')} onClick={() => createCart()} />
+                  }
+                  </>
                 }
               </>
             }
             </div>
-            {cartItems.length > 0 && !isLoading && <CartItemList itemList={cartItems} updateQuantity={updateQuantity} removeCartItem={removeCartItem} />}
-            {cartItems.length > 0 && !isLoading && <div className="float-right mb-36"><Button className="primary" label={__('Finalizar')} onClick={()=> startPayment()} /></div>}
+            {cartItems?.length > 0 && !isLoading && <CartItemList itemList={cartItems} updateQuantity={updateQuantity} removeCartItem={removeCartItem} />}
+            {cartItems?.length > 0 && !isLoading && <div className="float-right mb-36"><Button className="primary" label={__('Finalizar')} onClick={()=> startPayment()} /></div>}
           </div>
         </main>
   );
