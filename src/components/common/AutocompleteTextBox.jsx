@@ -92,7 +92,6 @@ const AutocompleteTextBox = ({label, options, value, onChange}) =>{
                 if(cursor === i) {
                     className += " bg-gray-100"
                 }
-                console.log('quehay aca', option)
                 return <li className={className} 
                     key={option}
                     onClick={() => select(option)}

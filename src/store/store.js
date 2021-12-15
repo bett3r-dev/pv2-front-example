@@ -4,11 +4,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 //reducers
-import { reducer as preferencesReducer } from './preferences/reducer.js';
+import { reducer as cartReducer } from './cart/reducer.js';
 
 const create = () => {
   const reducer = combineReducers({
-    Preferences: preferencesReducer,
+    Cart: cartReducer,
   });
 
   return createStore(

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useTranslation from '../hooks/useTranslation';
 import Button from '../components/common/Button';
@@ -11,27 +11,34 @@ import useSubscription from '../hooks/useSubscription';
 import useEndpoint from '../hooks/useEndpoint';
 import CartInvoice from '../components/common/CartInvoice';
 import useError from '../hooks/useError';
+import { useDispatch, useSelector } from 'react-redux';
+import { createCart, emptyCart, setCartItems, setProductList } from '../store/cart/reducer';
 
 
 export default function Home(props) {
+  //store
+  const dispatch = useDispatch();
+  const isCartCreated = useSelector((state) => state.Cart.isCartCreated)
+  const productList = useSelector((state) => state.Cart.productList)
+  const cartItems = useSelector((state) => state.Cart.cartItems)
+
+  //hooks
   let history = useHistory();
   const {__} = useTranslation();
   const subscriptions = useSubscription();
   const {get, post} = useEndpoint();
   const {error, createError, clearError} = useError();
-  const userId = uuid();
-  const [isCartCreated, setIsCartCreated] = useState(false);
+
+//state
+  const [success, setSuccess] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("")
-  const [productList, setProductList] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
-  const [cartItems, setCartItems] = useState([])
-  const [userCartId, setUserCartId] = useState(uuid())
-  const [success, setSuccess] = useState();
   const [invoice, setInvoice] = useState();
-
+  const [userCartId, setUserCartId] = useState(uuid());
+  const userId = uuid();
   
-  const createCart = () =>{
+  const initCart = () =>{
     setIsLoading(true)
     clearError("")
     setSuccess("")
@@ -45,8 +52,8 @@ export default function Home(props) {
         }else{
        get({endpoint: '/products/readmodel'})
           .then(res => {
-            setProductList([...res])
-            setIsCartCreated(true)
+            dispatch(setProductList([...res]))
+            dispatch(createCart())
             setIsLoading(false)
             setLoadingMessage("")
           })
@@ -58,6 +65,7 @@ export default function Home(props) {
         setLoadingMessage("")
       })
   }
+
   const addCartItem = (itemToAdd) =>{
     setSelectedOption(itemToAdd.name || itemToAdd)
    if(itemToAdd && productList.includes(itemToAdd)){ 
@@ -73,13 +81,14 @@ export default function Home(props) {
         }else{
         const newCartItems = cartItems;
         newCartItems.push({item: itemToAdd, quantity: 1})
-        setCartItems([...newCartItems]);
+        dispatch(setCartItems([...newCartItems]));
         setSelectedOption("")
         }
       })
       .catch(error => createError(error))
    }
   }
+
   const updateQuantity = (quantity, itemId) => {
     const itemToUpdate = cartItems.find(item => item.item.id === itemId);
     post({endpoint: `/carts/${userCartId}/update-quantity`, data:{ productId: itemToUpdate.item.id, quantity: quantity}})
@@ -89,11 +98,12 @@ export default function Home(props) {
         }else{
         const newCartItemList = [...cartItems]
         Object.assign(newCartItemList.find(item => item.item.id === itemId),{quantity: quantity});
-        setCartItems([...newCartItemList])
+        dispatch(setCartItems([...newCartItemList]))
         }
       })
       .catch(error => createError(error))
   }
+
   const removeCartItem = (itemId) =>{
     post({endpoint: `/carts/${userCartId}/remove-product`, data: itemId})
       .then(res => {
@@ -101,11 +111,12 @@ export default function Home(props) {
           createError(res.error)
         }else{
         const newCartItemList = cartItems.filter(item => item.item.id !== itemId)
-        setCartItems([...newCartItemList]);
+        dispatch(setCartItems([...newCartItemList]));
         }
     })
     .catch(error => createError(error.message))
   }
+
   const startPayment = () => { 
     setIsLoading(true)
     setLoadingMessage("Procesando  Pago")
@@ -115,7 +126,7 @@ export default function Home(props) {
             .map(() => subscriptions.unsubscribe('PaymentApproved'))
             .map(() => setSuccess("Pago Aprobado"))
             .map(()=> setLoadingMessage("Generando Factura"))
-            .map(()=> emptyCart())
+            .map(()=> destroyCart())
           subscriptions.subscribe('InvoiceCreated')
             .map(data => setInvoice({...data}))
             .map(() => subscriptions.unsubscribe('InvoiceCreated'))
@@ -140,17 +151,17 @@ export default function Home(props) {
               subscriptions.unsubscribe('PaymentApproved')
               subscriptions.unsubscribe('PaymentRejected')
             }else{
-            console.log('paymentstart call', res)
+            console.log('payment start call', res)
               
             }
         })
         .catch(error => createError(error.message))
         })
   }
-  const emptyCart = () =>{
-    setIsCartCreated(false)
-    setCartItems([])
-    setUserCartId(uuid())
+
+  const destroyCart = () =>{
+    setUserCartId(uuid());
+    dispatch(emptyCart())
   }
 
   return (
@@ -177,12 +188,12 @@ export default function Home(props) {
                   { invoice ?
                     <>
                       <div className="w-full">
-                        <Button label={__('Iniciar Otra Compra')} onClick={() => createCart()} />
+                        <Button label={__('Iniciar Otra Compra')} onClick={() => initCart()} />
                       </div>
                       <CartInvoice invoice={invoice}></CartInvoice>
                     </>
                     :
-                      <Button label={__('Iniciar Compra')} onClick={() => createCart()} />
+                      <Button label={__('Iniciar Compra')} onClick={() => initCart()} />
                   }
                   </>
                 }
